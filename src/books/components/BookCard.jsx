@@ -1,6 +1,7 @@
 import React from "react"
 import { randomBackgroundColor } from "../../helpers/colorsHelper"
 import { fullName } from "../../helpers/usersHelper"
+import { starRating } from "../../helpers/starRatings"
 
 const BookCard = ({ book, styles }) => {
   const { author } = book
@@ -19,6 +20,7 @@ const BookCard = ({ book, styles }) => {
         <div className={`uppercase ${cardAuthor}`}>{fullName(author)}</div>
       </div>
       <div className="mt-1 flex text-xs">
+        {starRating({ rating: book.average_rating })}
         <div className="pl-3">{book.reviews_count}</div>
       </div>
     </div>
