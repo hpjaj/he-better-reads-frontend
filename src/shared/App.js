@@ -1,6 +1,7 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import BooksPage from "../books/containers/BooksPage"
+import BookReviewPage from "../books/containers/BookReviewPage"
 
 function App() {
   return (
@@ -11,6 +12,12 @@ function App() {
         </Switch>
       </div>
     </Router>
+            <Route
+              setCurrentUser={setCurrentUser}
+              path="/books/:uuid/:slug/review"
+              exact
+              component={BookReviewPage}
+            />
   )
 }
 
