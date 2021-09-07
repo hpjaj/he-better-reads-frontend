@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Disclosure, Menu, Transition } from "@headlessui/react"
 import { MenuIcon, XIcon } from "@heroicons/react/outline"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { removeToken } from "../../helpers/authHelpers"
 import useUser from "../../hooks/useUser"
 import baseAPI from "../../helpers/baseAPI"
@@ -11,12 +11,11 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
-  const history = useHistory()
   const { currentUser } = useUser()
 
   const handleSignOut = () => {
     removeToken()
-    baseAPI.delete("/api/sessions").then(() => history.push("/login"))
+    baseAPI.delete("/api/sessions").then(() => (window.location = "/login"))
   }
 
   if (!currentUser) {
