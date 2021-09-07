@@ -1,5 +1,6 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import ProtectedRoute from "./components/ProtectedRoute"
 import BooksPage from "../books/containers/BooksPage"
 import BookPage from "../books/containers/BookPage"
 import BookReviewPage from "../books/containers/BookReviewPage"
@@ -14,15 +15,17 @@ function App() {
       </div>
     </Router>
             <Route
+            <ProtectedRoute
               path="/books"
               exact
               component={BooksPage}
             />
-            <Route
+            <ProtectedRoute
               path="/books/:uuid/:slug"
               exact
               component={BookPage}
             />
+            <ProtectedRoute
               setCurrentUser={setCurrentUser}
               path="/books/:uuid/:slug/review"
               exact
