@@ -2,19 +2,25 @@ import React, { useState, useEffect } from "react"
 import { Redirect, Route } from "react-router-dom"
 import baseAPI from "../../helpers/baseAPI"
 
-const ProtectedRoute = ({ component: Component, ...restOfProps }) => {
+const ProtectedRoute = ({
+  setCurrentUser,
+  component: Component,
+  ...restOfProps
+}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     baseAPI
       .get("/api/sessions")
-      .then(() => {
+      .then((resp) => {
         setIsAuthenticated(true)
+        setCurrentUser(resp.data)
         setLoading(false)
       })
       .catch(() => {
         setIsAuthenticated(false)
+        setCurrentUser(null)
         setLoading(false)
       })
   }, [])
