@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import BooksPage from "../books/containers/BooksPage"
 import BookPage from "../books/containers/BookPage"
 import BookReviewPage from "../books/containers/BookReviewPage"
+import LogInPage from "../sessions/containers/LogInPage"
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
       </div>
     </Router>
             <Route
+            <Route path="/" exact component={LogInPage} />
+            <Route path="/login" exact component={LogInPage} />
             <ProtectedRoute
               path="/books"
               exact
