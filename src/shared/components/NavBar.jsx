@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { removeToken } from "../../helpers/authHelpers"
 import useUser from "../../hooks/useUser"
 import baseAPI from "../../helpers/baseAPI"
+import { fullName } from "../../helpers/usersHelper"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -54,7 +55,7 @@ const NavBar = () => {
                   <div>
                     <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       <span className="sr-only">Open user menu</span>
-                      <div className="">User</div>
+                      <div className="">{fullName(currentUser)}</div>
                     </Menu.Button>
                   </div>
                   <Transition
