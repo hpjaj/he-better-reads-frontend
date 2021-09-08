@@ -6,6 +6,7 @@ import { removeToken } from "../../helpers/authHelpers"
 import useUser from "../../hooks/useUser"
 import baseAPI from "../../helpers/baseAPI"
 import { fullName } from "../../helpers/usersHelper"
+import heLogo from "../../assets/images/he-logo.jpeg"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -17,10 +18,6 @@ const NavBar = () => {
   const handleSignOut = () => {
     removeToken()
     baseAPI.delete("/api/sessions").then(() => (window.location = "/login"))
-  }
-
-  if (!currentUser) {
-    return null
   }
 
   return (
@@ -40,52 +37,83 @@ const NavBar = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex-shrink-0 flex items-center">
+                  <img
+                    className="block lg:hidden h-8 w-auto"
+                    src={heLogo}
+                    alt="Workflow"
+                  />
+                  <img
+                    className="hidden lg:block h-8 w-auto"
+                    src={heLogo}
+                    alt="Workflow"
+                  />
+                </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  <Link
-                    to={"/books"}
-                    className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
-                  >
-                    Books
-                  </Link>
+                  {currentUser ? (
+                    <Link
+                      to={"/books"}
+                      className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                    >
+                      Books
+                    </Link>
+                  ) : (
+                    <Fragment>
+                      <Link
+                        to={"/login"}
+                        className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        to={"/signup"}
+                        className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                      >
+                        Sign up
+                      </Link>
+                    </Fragment>
+                  )}
                 </div>
               </div>
 
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Menu as="div" className="z-10 ml-3 relative">
-                  <div>
-                    <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                      <span className="sr-only">Open user menu</span>
-                      <div className="">{fullName(currentUser)}</div>
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            onClick={handleSignOut}
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700",
-                            )}
-                            style={{ width: "100%" }}
-                          >
-                            Sign out
-                          </button>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
+              {currentUser && (
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <Menu as="div" className="z-10 ml-3 relative">
+                    <div>
+                      <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span className="sr-only">Open user menu</span>
+                        <div className="">{fullName(currentUser)}</div>
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={handleSignOut}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700",
+                              )}
+                              style={{ width: "100%" }}
+                            >
+                              Sign out
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </div>
+              )}
             </div>
           </div>
 
