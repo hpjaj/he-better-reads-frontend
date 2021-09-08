@@ -1,11 +1,9 @@
 import React, { useState } from "react"
-import { useHistory } from "react-router"
 import axios from "axios"
 import Button from "../../shared/components/Button"
 import { setToken } from "../../helpers/authHelpers"
 
 const LogInPage = () => {
-  const history = useHistory()
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [error, setError] = useState(null)
   const inputClasses =
@@ -27,7 +25,7 @@ const LogInPage = () => {
         .post("/api/sessions", formData)
         .then((resp) => {
           setToken(resp.data.token)
-          history.push("/books")
+          window.location = "/books"
         })
         .catch((resp) => {
           if (resp.response.status === 404) {
