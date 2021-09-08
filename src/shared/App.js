@@ -5,6 +5,7 @@ import BooksPage from "../books/containers/BooksPage"
 import BookPage from "../books/containers/BookPage"
 import BookReviewPage from "../books/containers/BookReviewPage"
 import LogInPage from "../sessions/containers/LogInPage"
+import SignUpPage from "../sessions/containers/SignUpPage"
 import NavBar from "./components/NavBar"
 import UserContext from "../context/user"
 
@@ -19,6 +20,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={LogInPage} />
             <Route path="/login" exact component={LogInPage} />
+            <Route path="/signup" exact component={SignUpPage} />
             <ProtectedRoute
               setCurrentUser={setCurrentUser}
               path="/books"
